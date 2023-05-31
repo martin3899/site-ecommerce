@@ -1,18 +1,37 @@
 <?php
-$name = "Vélo";
-$price= "150 euros";
-$image = "images/image-velo.jpg";
-echo "Le " . $name . " coûte " . $price . "<br>";
+$products = [
+    "giant" => [
+        "name" => "Giant",
+        "price" => 350000,
+        "weight" => 8500,
+        "picture" => "http://localhost/site-ecommerce/images/velo-giant.jpg",
+    ],
+    "scott" => [
+        "name" => "Scott",
+        "price" => 250000,
+        "weight" => 9000,
+        "picture" => "http://localhost/site-ecommerce/images/velo-scott.jpg",
+    ],
 
-if ($name!="Vélo") {
-    echo "Ce n'est pas un vélo" . "<br>";
-    }
-else{
-    echo "C'est un vélo" . "<br>";
-}
-?>
+    "lapierre" => [
+        "name" => "Lapierre",
+        "price" => 1000000,
+        "weight" => 7800,
+        "picture" => "http://localhost/site-ecommerce/images/velo-lapierre.jpg",
+    ],
+    "trek" => [
+        "name" => "Trek",
+        "price" => 500000,
+        "weight" => 8200,
+        "picture" => "http://localhost/site-ecommerce/images/velo-trek.jpg",
+    ],
 
-<img src="<?php echo $image ?>" height="100" width="100" alt="vélo"/>
+];
+
+$transporters = ["La poste","Colissimo", "Chronopost"];
+
+
+
 
 
 

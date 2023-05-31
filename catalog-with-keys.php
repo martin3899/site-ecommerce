@@ -30,7 +30,7 @@ $lapierre = array(
 <div>
     <h3><?php echo $giant["name"]?></h3>
     <p><?php echo "Prix: " . $giant["price"]  ?></p>
-    <img src="https://www.intercycle.fr/Files/124649/Img/08/gia22-propadvsld1M-Velo-Route-GIANT-Propel-Advanced-SL-1-Disc-AXS_1x1200.jpg" height="100" width="100" alt="image vélo giant"/>
+    <img src="https://www.intercycle.fr/Files/124649/Img/08/gia22-propadvsld1M-Velo-Route-GIANT-Propel-Advanced-SL-1-Disc-AXS_1x1200.jpg" height="400" width="400" alt="image vélo giant"/>
 </div>
 
 <div>

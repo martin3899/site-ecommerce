@@ -1,51 +1,58 @@
 <?php
-$products = [
-    "giant" => [
-        "name" => "Giant",
-        "price" => 350000,
-        "weight" => 8500,
-        "picture" => "http://localhost/site-ecommerce/images/velo-giant.jpg",
-    ],
-    "scott" => [
-        "name" => "Scott",
-        "price" => 250000,
-        "weight" => 9000,
-        "picture" => "http://localhost/site-ecommerce/images/velo-scott.jpg",
-    ],
+global $products;
+global $transporters;
+include "./template/header.php";
 
-    "lapierre" => [
-        "name" => "Lapierre",
-        "price" => 1000000,
-        "weight" => 7800,
-        "picture" => "http://localhost/site-ecommerce/images/velo-lapierre.jpg",
-    ],
-    "trek" => [
-        "name" => "Trek",
-        "price" => 500000,
-        "weight" => 8200,
-        "picture" => "http://localhost/site-ecommerce/images/velo-trek.jpg",
-    ],
+include "item.php";
 
-];
 include "my-functions.php";
+?>
 
-foreach ($products as $product):
+<main>
+
+<?php
+
+foreach ($products as $key => $product):
 
 ?>
 
+    <div class="container">
+        <div class="columns">
+            <div class="columns__column">
+                <img src="<?php echo $product["picture"] ?>" height="400" width="400" alt="image vélo"/>
+                <div>
+                    <h3><?php echo $product["name"]?></h3>
+                    <p>Prix TTC : <?php echo formatPrice($product["price"])  ?></p>
+                    <p>Prix HT : <?php echo priceExcludingVAT($product["price"])  ?></p>
+                    <p>Prix remisé : <?php echo discountedPrice($product["price"])  ?></p>
+                    <p><?php echo "Poids: " . $product["weight"]  ?></p>
+                    <form action="cart.php" method="post">
+                        <input id="marqueVelo" name="marqueVelo" value="<?php echo $key?>">
+                        <input id="prixVelo" name="prixVelo" value="<?php echo $product["price"]?>">
+                        <label for="nombreVelo">Quantité</label>
+                        <input id="nombreVelo" type="number" name="nombreVelo" value="0">
+                        <label for="choixTransporteur">Choix du transporteur:</label>
+                        <select id="choixTransporteur" name="transporteur">
+                            <option value="La poste" >La poste</option>
+                            <option value='Colissimo'>Colissimo</option>
+                            <option value='Chronopost'>Chronopost</option>
+                        </select>
+                        <p><input type="submit" name="order_form" value="Ajouter au panier"> </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div>
-    <h3><?php echo $product["name"]?></h3>
-    <p>Prix TTC : <?php echo formatPrice($product["price"])  ?></p>
-    <p>Prix HT : <?php echo priceExcludingVAT($product["price"])  ?></p>
-    <p>Prix remisé : <?php echo discountedPrice($product["price"])  ?></p>
-    <p><?php echo "Poids: " . $product["weight"]  ?></p>
-    <img src="<?php echo $product["picture"] ?>" height="100" width="100" alt="image vélo"/>
-
-</div>
 
 <?php
 
 endforeach;
+?>
+
+</main>
+
+<?php
+include "./template/footer.php";
 
 ?>

@@ -1,16 +1,34 @@
 <?php
 function formatPrice ($prix){
-    echo  round($prix/100, 2) . "€";
+    return  round($prix/100, 2) . "€";
 }
 
 
 function priceExcludingVAT ($prixTTC){
     $TVA = 20;
-    echo formatPrice((100*$prixTTC)/((100+$TVA)));
+    return (100*$prixTTC)/((100+$TVA));
 }
-print_r(priceExcludingVAT (350000));
+
 
 function discountedPrice($prixAvantRemise){
     $remise = 0.1; //remise de 10%
-    echo formatPrice($prixAvantRemise*(1-$remise));
+    return formatPrice($prixAvantRemise*(1-$remise));
+}
+
+function totalPrice($prix,$quantite){
+    return $prix*$quantite;
+}
+
+function priceTransport($quantite){
+    if ($quantite==1){
+        return 8000;
+    }
+    elseif ($quantite>1 && $quantite<3){
+        return 4000;
+    }
+
+    else {
+        return 0;
+    }
+
 }
