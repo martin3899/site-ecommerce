@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,18 +19,18 @@
 <header class="header">
     <div class="container">
         <div class="columns">
-            <div class="columns__column"
-                <div>
-                    <img src="logo/logo-vélo.jpg" alt="photo de profil" height="50" width="50">
-                </div>
-                <div>
-                    <ul>
-                        <li>
-                            <a>Catalogue</a>
-                            <a>Mon pannier</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="columns__column" >
+                <img src="logo/cycliste.png" alt="photo de profil" height="50" width="50">
+            </div>
+            <div class="columns__column.buttonheader">
+                <ul class="columns__column">
+                    <li>
+                        <a>Catalogue</a>
+                    </li>
+                    <li>
+                        <a>Mon pannier</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

@@ -47,6 +47,14 @@ ul {
 .header{
     background-color: var(--color-background);
 }
+.buttonheader{
+    display: flex;
+    justify-content:flex-end;
+}
+
+
+
+
 
 body{
     font-family: Arial, Helvetica, sans-serif;
@@ -80,3 +88,6 @@ h3 {
     background-color: var(--color-background);
 }
 
+th thead td tbody{
+    text-align: center;
+}

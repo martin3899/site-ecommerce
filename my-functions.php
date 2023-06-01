@@ -4,8 +4,8 @@ function formatPrice ($prix){
 }
 
 
-function priceExcludingVAT ($prixTTC){
-    $TVA = 20;
+function priceExcludingVAT ($prixTTC,$TVA = 20){
+    ;
     return (100*$prixTTC)/((100+$TVA));
 }
 
