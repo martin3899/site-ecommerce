@@ -6,8 +6,8 @@
 :root {
     --font-size: 18px;
     --spacing-default: 3rem;
-    --color-primary: #5C180A;
-    --color-background: #c2bab8;
+    --color-primary: #3c6e71;
+    --color-background: #d9d9d9;
     font-size: var(--font-size);
 
 
@@ -41,25 +41,19 @@ ul {
 .columns__column {
     display: flex;
     flex: 1;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
-
-
-.header{
-    background-color: var(--color-background);
-}
-.buttonheader{
-    display: flex;
-    justify-content:flex-end;
-}
-
-
-
-
 
 body{
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.5;
     margin: 0;
+}
+
+main{
+    background-color: var(--color-background);
 }
 
 h1{
@@ -84,10 +78,24 @@ h3 {
     font-size:200%;
 }
 
-.footer{
-    background-color: var(--color-background);
-}
 
 th thead td tbody{
     text-align: center;
 }
+
+.quantiy_input{
+    width: 80px;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 2rem;
+    padding: 0.3rem
+}
+
+.submit_button{
+    border-radius: 10px;
+    padding: 0.5rem 0.3rem;
+    margin-top: 2rem;
+    background-color: var(--color-primary);
+}
+
+

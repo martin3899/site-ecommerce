@@ -1,34 +1,74 @@
 <?php
+
+require_once "products.php";
 function formatPrice ($prix){
     return  round($prix/100, 2) . "€";
 }
 
-
-function priceExcludingVAT ($prixTTC,$TVA = 20){
-    ;
-    return (100*$prixTTC)/((100+$TVA));
+function formatWeight($weight){
+    return round($weight/1000, 1) . "kg";
 }
 
 
-function discountedPrice($prixAvantRemise){
-    $remise = 0.1; //remise de 10%
-    return formatPrice($prixAvantRemise*(1-$remise));
+function getPriceWithTax($price, $tax = 20) {
+    return $price * (1 + $tax/100);
 }
 
-function totalPrice($prix,$quantite){
-    return $prix*$quantite;
+function getTaxFromPrice($price, $tax = 20) {
+    return $price * ($tax/100);
 }
 
-function priceTransport($quantite){
-    if ($quantite==1){
-        return 8000;
-    }
-    elseif ($quantite>1 && $quantite<3){
-        return 4000;
+
+function addToCart($productKey, $quantity) {
+
+    $product = getProduct($productKey);
+
+    // On ne fait rien si le produit n'est pas en stock
+    if ($product['stock'] === 0 || $product['stock'] < $quantity) {
+        return;
     }
 
-    else {
-        return 0;
+    // On initialise le tableau de session s'il n'existe pas encore
+    if (! isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
     }
 
+    // On ajoute (ou remplace) le produit au panier
+    if (isset($_SESSION['cart'][$productKey])) {
+        $_SESSION['cart'][$productKey] += $quantity;
+    } else {
+        $_SESSION['cart'][$productKey] = $quantity;
+    }
+}
+
+function getCart() {
+    $cartSession = $_SESSION['cart'] ?? [];
+
+    $cart = [];
+
+    foreach($cartSession as $productKey => $quantity) {
+
+        $product = getProduct($productKey);
+
+        $cart[] = [
+            'id'        => $productKey,
+            'title'     => $product['title'],
+            'stock'     => $product['stock'],
+            'price'     => $product['price'],
+            'quantity'  => $quantity,
+            'total'     => $product['price'] * $quantity,
+        ];
+    }
+
+    return $cart;
+}
+
+function getCartTotal($cart) {
+    $total = 0;
+
+    foreach($cart as $item) {
+        $total += $item['total'];
+    }
+
+    return $total;
 }

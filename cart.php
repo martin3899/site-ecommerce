@@ -1,61 +1,77 @@
 <?php
-global $products;
-global $transporters;
-include "template/header.php";
-include "item.php";
-include "my-functions.php";
-$_SESSION["marqueVelo"]= $_POST["marqueVelo"];
-$_SESSION["prixVelo"]= $_POST["prixVelo"];
-$_SESSION["nombreVelo"]= $_POST["nombreVelo"];
-?>
-<?php
+session_start();
 
-    print_r($_POST);
-    ?>
+include "my-functions.php";
+
+if ( isset($_POST['product']) && isset($_POST['quantity']) && isset($_POST['action']) ) {
+    $productKey = $_POST['product'];
+    $quantity = $_POST['quantity'];
+    $action = $_POST['action'];
+
+    if ($action === "add") {
+        addToCart($productKey, $quantity);
+    }
+}
+
+$cart=getCart();
+$total=getCartTotal($cart);
+
+include "template/header.php";
+?>
+
 
 <div>
-    <table class="table table-striped-columns">
-        <thead>
+    <form action="cart.php" method="post">
+        <table class="table table-striped-columns">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($cart as $item):
+            ?>
+                <tr>
+                    <td><?php echo  $item['title']?> </td>
+                    <td><?php echo formatPrice(getPriceWithTax($item['price'])) ?></td>
+                    <td><input type="hidden" name="product[]" value="<?php echo $item['id'] ?>">
+                        <input type="number" name="quantity[]" value="<?php echo $item['quantity'] ?>" min="1" max="<?php echo $item['stock'] ?>"></td>
+                    <td><?php echo formatPrice(getPriceWithTax($item['total'])) ?> </td>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+            <tfoot>
             <tr>
-                <th>Produit</th>
-                <th>Prix unitaire</th>
-                <th>Quantité</th>
-                <th>Total</th>
-                <th>Total HT</th>
-                <th>TVA</th>
-                <th>Transport</th>
-                <th>Total TTC</th>
-
+                <td colspan="2">
+                </td>
+                <td>Total HT</td>
+                <td><?php echo formatPrice($total) ?></td>
             </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($products as $product):
-
-        ?>
             <tr>
-                <td><?php echo $_SESSION["marqueVelo"]?> </td>
-                <td><?php echo formatPrice($_SESSION["prixVelo"]) ?></td>
-                <td><?php echo $_SESSION["nombreVelo"]?></td>
-                <td><?php echo formatPrice(totalPrice($_SESSION["prixVelo"],$_SESSION["nombreVelo"])) ?> </td>
-                <td><?php echo formatPrice(priceExcludingVAT(totalPrice($_SESSION["prixVelo"],$_SESSION["nombreVelo"]))) ?></td>
-                <td><?php echo formatPrice(totalPrice($_SESSION["prixVelo"],$_SESSION["nombreVelo"])-priceExcludingVAT(totalPrice($_SESSION["prixVelo"],$_SESSION["nombreVelo"]))) ?> </td>
-                <td><?php echo formatPrice(priceTransport($_SESSION["nombreVelo"])) ?> </td>
-                <td><?php echo formatPrice(totalPrice($_SESSION["prixVelo"],$_SESSION["nombreVelo"])+priceTransport($_SESSION["nombreVelo"])) ?> </td>
+                <td colspan="2"></td>
+                <td>Dont TVA</td>
+                <td><?php echo formatPrice(getTaxFromPrice($total)) ?></td>
             </tr>
-        <?php endforeach;?>
-        </tbody>
-
-    </table>
+            <tr>
+                <td colspan="2"></td>
+                <td>Total TTC</td>
+                <td><?php echo formatPrice(getPriceWithTax($total)) ?></td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
 
 </div>
 
 
 
 
-
-
+<pre>
 <?php
-
 include "template/footer.php";
-
+var_dump($cart);
 ?>
+</pre>
