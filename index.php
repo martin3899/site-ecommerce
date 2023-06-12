@@ -29,9 +29,9 @@ foreach ($products as $productKey => $product):
 
                 <form class="form" action="cart.php" method="post">
                     <input type="hidden" name="action" value="add">
-                    <input type="hidden" id="marqueVelo" name="marqueVelo" value="<?php echo $productKey?>">
+                    <input type="hidden" id="marqueVelo" name="product" value="<?php echo $productKey?>">
                     <label for="nombreVelo">Quantité</label>
-                    <input class="quantiy_input" id="nombreVelo" type="number" name="nombreVelo" value="0" min="0", max="<?php echo $product['stock']; ?>">
+                    <input class="quantiy_input" id="nombreVelo" type="number" name="quantity" value="0" min="0", max="<?php echo $product['stock']; ?>">
                     <p><input class="submit_button" type="submit" name="order_form" value="Ajouter au panier"> </p>
                 </form>
             </div>

@@ -52,7 +52,6 @@ function getCart() {
 
         $cart[] = [
             'id'        => $productKey,
-            'title'     => $product['title'],
             'stock'     => $product['stock'],
             'price'     => $product['price'],
             'quantity'  => $quantity,

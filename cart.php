@@ -35,7 +35,7 @@ include "template/header.php";
             <?php foreach ($cart as $item):
             ?>
                 <tr>
-                    <td><?php echo  $item['title']?> </td>
+                    <td><?php echo  $item['id']?> </td>
                     <td><?php echo formatPrice(getPriceWithTax($item['price'])) ?></td>
                     <td><input type="hidden" name="product[]" value="<?php echo $item['id'] ?>">
                         <input type="number" name="quantity[]" value="<?php echo $item['quantity'] ?>" min="1" max="<?php echo $item['stock'] ?>"></td>
@@ -69,9 +69,8 @@ include "template/header.php";
 
 
 
-<pre>
+
 <?php
 include "template/footer.php";
-var_dump($cart);
 ?>
-</pre>
+
