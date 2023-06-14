@@ -12,7 +12,7 @@ try {
 }
 
 
-if ( isset($_POST['product']) && isset($_POST['quantity']) && isset($_POST['action']) ) {
+if ( isset($_POST['product']) && isset($_POST['quantity']) && isset($_POST['action'])) {
     $productKey = $_POST['product'];
     $quantity = $_POST['quantity'];
     $action = $_POST['action'];
@@ -22,17 +22,23 @@ if ( isset($_POST['product']) && isset($_POST['quantity']) && isset($_POST['acti
     }
 }
 
+if( isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['adress'])) {
+    $_SESSION['firstName']=$_POST['firstName'];
+    $_SESSION['lastName']=$_POST['lastName'];
+    $_SESSION['adress']=$_POST['adress'];
+    addCustomer($db, $_SESSION['firstName'],$_SESSION['lastName'],$_SESSION['adress']);
 
-if ( isset($_POST['validate_form'])){
+}
+
+var_dump($_POST);
+if ( isset($_POST['validate_form']) && isset($_POST['product']) && isset($_POST['quantity'])){
     $dateTime=date('Y-m-d h-i-s');
     $numberOrder=random_int(0,99999);
-    if( isset($_POST['firsName']) && isset($_POST['lastName']) && isset($_POST['adress'])) {
-        addCustomer($db, $_POST['firsName'],$_POST['lastName'],$_POST['adress']);
-    }
-
     addOrder($db,$dateTime,$numberOrder);
-    addQuantity($db, $_POST['product'],$numberOrder,$_POST['quantity']);
-    calculateNewStock($db, $_POST['quantity'],$_POST['product']);
+    foreach ($_POST['product'] as $productKey => $product) {
+        addQuantity($db, $product, $numberOrder, $_POST['quantity'][$productKey]);
+        calculateNewStock($db, $_POST['quantity'][$productKey], $product);
+    }
 }
 
 
@@ -49,11 +55,12 @@ include "template/header.php";
 <div>
     <form action="cart.php" method="post">
         <label for="firstName">Prénom</label>
-        <input class="text_input" type="text" name="firstName" value="firstName">
+        <input class="text_input" type="text" name="firstName" >
         <label for="lastName">Nom</label>
-        <input class="text_input" type="text" name="lastName" value="lastName">
+        <input class="text_input" type="text" name="lastName" >
         <label for="adress">Adresse</label>
-        <input class="text_input" type="text" name="adress" value="adress">
+        <input class="text_input" type="text" name="adress" >
+        <p><input class="submit_button" type="submit" name="validate_customer" value="Valider"> </p>
     </form>
     <form action="cart.php" method="post">
         <table class="table table-striped-columns">
@@ -96,11 +103,8 @@ include "template/header.php";
             </tr>
             </tfoot>
         </table>
-    </form>
-    <form action="cart.php" method="post">
         <p><input class="submit_button" type="submit" name="validate_form" value="Valider"> </p>
     </form>
-
 </div>
 
 
@@ -109,9 +113,7 @@ include "template/header.php";
 
 <?php
 
-
 include "template/footer.php";
-
 
 ?>
 

@@ -71,3 +71,20 @@ function getCartTotal($cart) {
 
     return $total;
 }
+
+function updateCart($productKeys, $quantities) {
+    for($i = 0; $i < count($productKeys); $i++) {
+
+        $productKey = $productKeys[$i];
+        $product = getProduct($productKey);
+        $quantity = $quantities[$i];
+
+        // On ne fait rien si le produit n'est pas en stock
+        if ($product['stock'] === 0 || $product['stock'] < $quantity ) {
+            return;
+        }
+
+        // On ajoute (ou remplace) le produit au panier
+        $_SESSION['cart'][$productKey] = $quantity;
+    }
+}
