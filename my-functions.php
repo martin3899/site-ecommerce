@@ -88,3 +88,5 @@ function updateCart($productKeys, $quantities) {
         $_SESSION['cart'][$productKey] = $quantity;
     }
 }
+
+
