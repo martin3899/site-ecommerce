@@ -3,8 +3,8 @@
 class tresHautDeGamme extends Item {
     public string $quality;
 
-    public function __construct(string $name, int $price,  string $imageURL, int $weight, int $stock,string $quality){
-        parent::__construct(  $name, $price,   $imageURL,  $weight,  $stock);
+    public function __construct(int $id,string $name, int $price,  string $imageURL, int $weight, int $stock,string $quality){
+        parent::__construct( $id, $name, $price,   $imageURL,  $weight,  $stock);
         $this->quality=$quality;
     }
 

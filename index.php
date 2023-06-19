@@ -5,14 +5,16 @@ session_start();
 include "./classes/catalogue.php";
 include "./classes/pdo.php";
 include "./classes/clients.php";
+include "./classes/heritage-product.php";
 include "./template/header.php";
 
 
 
 $connection = new connexionToDatabase();
-$products = $connection->request('select * from products ');
+$products = $connection->request('select * from products');
 $catalogue=new Catalogue($products);
 $catalogue->displayCatalogue($products);
+
 
 
 $customer = $connection->request('select * from customers ');

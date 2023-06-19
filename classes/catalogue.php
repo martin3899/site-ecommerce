@@ -26,6 +26,9 @@ class Item{
         $this->stock=$stock;
     }
 
+    public function setPrice(){
+       return $this->price=$price;
+    }
     /**
      * @return string
      */

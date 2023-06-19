@@ -3,6 +3,10 @@ session_start();
 
 include "my-functions.php";
 include "database.php";
+include "./classes/catalogue.php";
+include "./classes/pdo.php";
+include "./classes/clients.php";
+include "./classes/heritage-product.php";
 
 
 try {
